@@ -23,7 +23,7 @@ setup(
     # https://packaging.python.org/en/latest/single_source_version.html
     version=__version__,
 
-    description='PJBank Ppython SDK',
+    description='PJBank Python SDK',
     long_description=LONG_DESCRIPTION,
 
     # The project's main homepage.
