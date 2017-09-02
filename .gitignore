@@ -1,0 +1,3 @@
+*.pyc
+pjbanksdk.egg-info
+pjbanksdk.egg-info/*.*

@@ -1,4 +1,4 @@
-__version__ = "0.1.dev"
+__version__ = "0.2.dev"
 __packagename__ = "pjbanksdk"
 __pypi_packagename__ = "pjbank-sdk"
 __endpoint_map__ = {
