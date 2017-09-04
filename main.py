@@ -1,2 +1,0 @@
-
-from Foo import Bar
