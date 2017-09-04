@@ -1,38 +1,48 @@
-import requests
-from pjbanksdk.config import __endpoint_map__
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-class Api(object):
-    """docstring for PJBank."""
-    def __init__(self, credencial = None, chave = None, modo = None):
-        super(PJBank, self).__init__()
+import requests
+from pjbanksdk.config import __apiurls__ as apiurls
+
+class PJBankAPI(object):
+    """docstring for PJBankAPI."""
+    def __init__(self):
+        self._url = apiurls.get("sandbox")
+        self._credencial = None
+        self._chave = None
+        self.get = {"X-CHAVE": self._chave}
+        self.post = {"Content-Type": "application/x-www-form-urlencoded"}
+        self.delete = {"X-CHAVE": self._chave}
+        self.metodos = ["GET", "POST", "DELETE"]
+    
+    def configurar(self, credencial=None, chave=None, modo=None):
         if credencial:
             self._credencial = credencial
-        if chave:             
+        if chave:
             self._chave = chave
         if modo:
-            self._endpoint = self.__endpoint_map__.get(modo)
-        if not self._endpoint:
-            self._endpoint = self.__endpoint_map__.get("sandbox")
+            self._url = apiurls.get(modo)
     
-    def request(self, parametros):
-        # self.header = self.getHeader()
-        # self.body
-        # return requests.request()
-        pass
-
-
-    def getHeader(self, metodo, padrao = "padrao"):
-        permitidos = ["GET", "POST", "DELETE"]
-        if metodo not in permitidos:
-            raise ValueError("Método {} não é permitido. Utilize {}".format(metodo, ",".join(permitidos)))
-        get = {"X-CHAVE": self._chave}
-        post = {"Content-Type": "application/x-www-form-urlencoded"}
-        delete = {"X-CHAVE": self._chave}
-        headers = {"GET": get, "POST": post, "DELETE": delete}
-        return headers[metodo][padrao]
-
-    def body(self, parameter_list):
-        pass
+    def get_credencial(self):
+        return self._credencial
     
-    def data(self, parameter_list):
+    def get_chave(self):
+        return self._chave
+
+    def request(self, metodo, endpoint, parametros, header=None):
+        if not header:
+            header = self.get_header(metodo)
+        url = "/".join([self._url, endpoint])
+        return requests.request(metodo,
+                                url,
+                                data=parametros,
+                                headers=header)
+
+    def get_header(self, metodo):
+        if metodo not in self.metodos:
+            raise ValueError("Método {} não é permitido. Utilize {}".format(metodo, ",".join(self.metodos)))
+        headers = {"GET": self.get, "POST": self.post, "DELETE": self.delete}
+        return headers[metodo]
+
+    def set_header(self, metodo):
         pass
