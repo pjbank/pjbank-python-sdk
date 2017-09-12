@@ -7,35 +7,43 @@ class Boleto(PJBankAPI):
     """docstring for Boleto."""
     def __init__(self):
         super(Boleto, self).__init__()
-        self._endpoint = "recebimentos"
+        self.__endpointBase = "recebimentos"
+        self.__metodos = ["GET", "POST"]
     
     def get_modelo(self, tipo):
         pass
+    
+    def get_headers(self, chave=None):
+        headers = {"Content-Type":"application/json"}
+        if chave:
+            headers.update({"X-CHAVE": self.get_chave})
+        return headers
+            
+    def get_endpoint(self, *args):
+        if self._credencial:
+            args = [self._credencial]+args
+        return "/".join([self.__endpointBase]+args)
 
-    def credenciar(self, parametros):
-        endpoint = "/".join([self._endpoint])
-        response = self.request("POST", endpoint, parametros)
+    def credenciar(self, dadosEmpresa):
+        response = self._post(self.get_endpoint(), self.get_headers(), dadosEmpresa)
         if response.ok:
             info = response.json()
             self.configurar(info['credencial'], info['chave'])
         return response.text
     
-    def emitir_boleto(self, parametros):
-        endpoint = "/".join([self._endpoint, self._credencial, 'transacoes'])
-        response = self.request("POST", endpoint, parametros)
+    def emitir(self, dadosBoleto):
+        response = self._post(self.get_endpoint('transacoes'), self.get_headers(), dadosBoleto)
         return response.text
     
-    def imprimir_boletos_lote(self, parametros):
-        header = self.post
-        header["X-CHAVE"] = self._chave
-        endpoint = "/".join([self._endpoint, self._credencial, 'transacoes', 'lotes'])
-        response = self.request("POST", endpoint, parametros, header)
+    def imprimir(self, idsBoletos, carne=None):
+        body = {"pedido_numero": idsBoletos}
+        if carne:
+            body.update({"formato": carne})
+        response = self._post(self.get_endpoint('transacoes','lotes'), self.get_headers(), body)
         return response.text
-
-    def imprimir_carne(self, parametros):
-        header = self.post
-        header["X-CHAVE"] = self._chave
-        endpoint = "/".join([self._endpoint, self._credencial, 'transacoes', 'lotes'])
-        response = self.request("POST", endpoint, parametros, header)
+    
+    def extrato(self, pago=None, dataInicio=None, dataFim=None, pagina=None):
+        url_params = self.get_endpoint('transacoes')
+        params = {"pago":pago, "dataInicio": dataInicio, "dataFim": dataFim, "pagina": pagina}
+        response = self._get(url_params, self.get_headers(), params=params)
         return response.text
-        

@@ -6,15 +6,14 @@ from pjbanksdk.config import __apiurls__ as apiurls
 
 class PJBankAPI(object):
     """docstring for PJBankAPI."""
+
     def __init__(self):
         self._url = apiurls.get("sandbox")
         self._credencial = None
         self._chave = None
-        self.get = {"X-CHAVE": self._chave}
-        self.post = {"Content-Type": "application/x-www-form-urlencoded"}
-        self.delete = {"X-CHAVE": self._chave}
-        self.metodos = ["GET", "POST", "DELETE"]
-    
+        self.__metodos = ["GET", "POST", "PUT", "DELETE"]
+        self.__endpointBase = None
+
     def configurar(self, credencial=None, chave=None, modo=None):
         if credencial:
             self._credencial = credencial
@@ -29,20 +28,30 @@ class PJBankAPI(object):
     def get_chave(self):
         return self._chave
 
-    def request(self, metodo, endpoint, parametros, header=None):
-        if not header:
-            header = self.get_header(metodo)
-        url = "/".join([self._url, endpoint])
-        return requests.request(metodo,
-                                url,
-                                data=parametros,
-                                headers=header)
+    def get_modo(self):
+        return self._url
 
-    def get_header(self, metodo):
-        if metodo not in self.metodos:
-            raise ValueError("Método {} não é permitido. Utilize {}".format(metodo, ",".join(self.metodos)))
-        headers = {"GET": self.get, "POST": self.post, "DELETE": self.delete}
-        return headers[metodo]
+    def get_headers(self, parameter_list):
+        raise NotImplementedError
 
-    def set_header(self, metodo):
-        pass
+    def get_endpoint(self, credenciais=False, *args):
+        if credenciais:
+            args = [self._credencial]+args
+        return "/".join([self.__endpointBase]+args)
+    
+    def _request(self, metodo, endpoint, headers, dados=None, params=None):
+        url = "/".join([self._url, self.__endpointBase, endpoint])
+        return requests.request(metodo, url, data=dados, headers=headers, params=params)
+
+    def _get(self, endpoint, headers):
+        return self._request("GET", endpoint, headers)
+    
+    def _post(self, endpoint, headers, dados):
+        return self._request("POST", endpoint, headers, dados)
+    
+    def _put(self, endpoint, headers, dados):
+        return self._request("PUT", endpoint, headers, dados)
+    
+    def _delete(self, endpoint, headers, dados=None):
+        return self._request("DELETE", endpoint, headers, dados)
+

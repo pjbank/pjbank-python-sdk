@@ -2,6 +2,7 @@
 {
     "files.encoding": "utf8",
      "workbench.colorCustomizations": {
-        "activityBar.background": "#c3a434"
+        "activityBar.background": "#a37414",
+        "tab.activeBorder": "#c3a434"
     }
 }
