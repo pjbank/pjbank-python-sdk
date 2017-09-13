@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-__version__ = "0.4.dev1"
+__version__ = "0.5.dev1"
 __packagename__ = "pjbanksdk"
 __pypi_packagename__ = "pjbank-sdk"
 __apiurls__ = {

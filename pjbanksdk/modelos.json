@@ -1,7 +1,18 @@
 [
   {
     "recebimento": {
-      "boleto": {},
+      "boleto": {
+        "credenciar": {
+          "nome_empresa": "",
+          "conta_repasse": "",
+          "agencia_repasse": "",
+          "banco_repasse": "",
+          "cnpj": "",
+          "ddd": "",
+          "telefone": "",
+          "email": ""
+        }
+      },
       "cartao": {}
     },
     "conta_digital": {

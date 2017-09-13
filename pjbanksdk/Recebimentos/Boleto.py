@@ -5,45 +5,46 @@ from pjbanksdk.api import PJBankAPI
 
 class Boleto(PJBankAPI):
     """docstring for Boleto."""
-    def __init__(self):
+    def __init__(self, credencial=None, chave=None):
         super(Boleto, self).__init__()
-        self.__endpointBase = "recebimentos"
+        self.__endpoint_base = "recebimentos"
         self.__metodos = ["GET", "POST"]
-    
+        if credencial and chave:
+            self.configurar(credencial, chave)
+
     def get_modelo(self, tipo):
         pass
-    
-    def get_headers(self, chave=None):
-        headers = {"Content-Type":"application/json"}
-        if chave:
-            headers.update({"X-CHAVE": self.get_chave})
-        return headers
-            
-    def get_endpoint(self, *args):
-        if self._credencial:
-            args = [self._credencial]+args
-        return "/".join([self.__endpointBase]+args)
 
-    def credenciar(self, dadosEmpresa):
-        response = self._post(self.get_endpoint(), self.get_headers(), dadosEmpresa)
+    def credenciar(self, dados_empresa):
+        response = self._post(self.get_endpoint(), self.get_headers(), dados_empresa)
         if response.ok:
             info = response.json()
             self.configurar(info['credencial'], info['chave'])
         return response.text
-    
-    def emitir(self, dadosBoleto):
-        response = self._post(self.get_endpoint('transacoes'), self.get_headers(), dadosBoleto)
+
+    def emitir(self, dados_boleto):
+        response = self._post(self.get_endpoint('transacoes'), self.get_headers(), dados_boleto)
         return response.text
-    
-    def imprimir(self, idsBoletos, carne=None):
-        body = {"pedido_numero": idsBoletos}
+
+    def imprimir(self, ids_boletos, carne=None):
+        body = {"pedido_numero": ids_boletos}
         if carne:
             body.update({"formato": carne})
-        response = self._post(self.get_endpoint('transacoes','lotes'), self.get_headers(), body)
+        response = self._post(self.get_endpoint('transacoes', 'lotes'), self.get_headers(), body)
         return response.text
-    
-    def extrato(self, pago=None, dataInicio=None, dataFim=None, pagina=None):
+
+    def extrato(self, pago=None, data_inicio=None, data_fim=None, pagina=None):
         url_params = self.get_endpoint('transacoes')
-        params = {"pago":pago, "dataInicio": dataInicio, "dataFim": dataFim, "pagina": pagina}
+        params = {}
+        if pago:
+            params.update({"pago":pago})
+        if data_inicio:
+            params.update({"data_inicio":data_inicio})
+        if data_fim:
+            params.update({"data_fim":data_fim})
+        if pagina:
+            params.update({"pagina":pagina})
+
         response = self._get(url_params, self.get_headers(), params=params)
         return response.text
+    
