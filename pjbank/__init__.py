@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 
 """
-pjbanksdk
+pjbank
 """
-from pjbanksdk import ContaDigital, Recebimentos
-from pjbanksdk.config import __version__
+from pjbank import ContaDigital, Recebimentos
+from pjbank.config import __version__
 
 
 class PJBank(object):

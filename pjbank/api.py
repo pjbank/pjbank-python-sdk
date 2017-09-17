@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import requests
-from pjbanksdk.config import __apiurls__ as apiurls
+from pjbank.config import __apiurls__ as apiurls
 
 class PJBankAPI(object):
     """docstring for PJBankAPI."""

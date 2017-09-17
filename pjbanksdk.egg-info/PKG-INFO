@@ -1,0 +1,28 @@
+Metadata-Version: 1.1
+Name: pjbank
+Version: 0.4.dev1
+Summary: PJBank Python SDK
+Home-page: https://github.com/pjbank/pjbank-python-sdk
+Author: Raphael Mattos
+Author-email: raphael.mattos@pjbank.com.br
+License: MIT
+Description: PJBank Python SDK
+        =======================
+        
+        PJbank SDK para Python! :snake: :snake: :snake:
+        ----
+        
+Keywords: pjbank contadigital boleto cartao pagamentos recebimentos
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.6
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6

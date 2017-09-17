@@ -1,6 +1,6 @@
 *.pyc
-pjbanksdk.egg-info
-pjbanksdk.egg-info/*.*
+pjbank.egg-info
+pjbank.egg-info/*.*
 .vscode/tags
 .vscode/.ropeproject/config.py
 .vscode/.ropeproject/objectdb

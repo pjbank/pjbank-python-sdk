@@ -7,7 +7,7 @@ from os import path
 # Always prefer setuptools over distutils
 from setuptools import setup, find_packages
 #configs do pacote
-from pjbanksdk.config import __version__, __packagename__
+from pjbank.config import __version__, __packagename__
 
 HERE = path.abspath(path.dirname(__file__))
 
@@ -106,7 +106,7 @@ setup(
     # pip to create the appropriate form of executable for the target platform.
     entry_points={
         'console_scripts': [
-            'pjbank=pjbanksdk:main',
+            'pjbank=pjbank:main',
         ],
     },
 )

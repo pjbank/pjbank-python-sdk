@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from pjbanksdk.api import PJBankAPI
+from pjbank.api import PJBankAPI
 
 class CartaoCredito(PJBankAPI):
     """docstring for Boleto."""
