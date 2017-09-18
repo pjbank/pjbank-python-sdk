@@ -7,7 +7,7 @@ class Recebimentos(PJBankAPI):
     """docstring for Recebimentos."""
     def __init__(self, credencial=None, chave=None):
         super().__init__(credencial, chave)
-        self.__endpoint_base = "recebimentos"
+        self._endpoint_base = "recebimentos"
         self._chave_headers = "X-CHAVE"
         if credencial and chave:
             self.configurar(credencial, chave)

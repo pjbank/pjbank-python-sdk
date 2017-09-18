@@ -9,8 +9,8 @@ class PJBankAPI(object):
 
     def __init__(self, credencial=None, chave=None, modo="sandbox"):
         self._modo = modo
-        self.__url = apiurls.get(self._modo)
-        self.__endpoint_base = ''
+        self._url = apiurls.get(self._modo)
+        self._endpoint_base = ''
         self._credencial = credencial
         self._chave = chave
         self._chave_headers = "X-CHAVE-CONTA"
@@ -38,8 +38,10 @@ class PJBankAPI(object):
 
     @modo.setter
     def modo(self, modo):
+        if modo not in apiurls:
+            raise Exception("Modo inválido. Use 'live' ou 'sandbox'.")
         self._modo = modo
-        self.__url = apiurls.get(self._modo)
+        self._url = apiurls.get(self._modo)
 
     @property
     def headers_chave(self):
@@ -49,13 +51,15 @@ class PJBankAPI(object):
     def headers_content(self):
         return {"Content-Type": self._content_type}
     
-    def _get_endpoint(self, *args):
-        if self.credencial:
-            args = [self.credencial]+args
-        return "/".join([self.__endpoint_base]+args)
+    def _get_endpoint(self, recursos=None):
+        base = [self._url, self._endpoint_base]
+        if recursos:
+            base.extend(recursos)
+        url = '/'.join(base)
+        return url
 
     def _request(self, metodo, endpoint, headers, dados=None, params=None):
-        url = self._get_endpoint([self.__url, self.__endpoint_base]+endpoint)
+        url = self._get_endpoint(endpoint)
         return requests.request(metodo, url, data=dados, headers=headers, params=params)
 
     def _get(self, endpoint, headers, params=None):
@@ -76,11 +80,11 @@ class PJBankAPI(object):
         if chave:
             self.chave = chave
         if modo:
-            self.__url = apiurls.get(modo)
+            self._url = apiurls.get(modo)
     
     def credenciar(self, dados_empresa):
         headers = self.headers_content
-        response = self._post(self._get_endpoint(), headers, dados_empresa)
+        response = self._post(None, headers, dados_empresa)
         if response.ok:
             info = response.json()
             self.configurar(info['credencial'], info['chave'])
