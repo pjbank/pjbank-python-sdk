@@ -16,6 +16,20 @@
       "cartao": {}
     },
     "conta_digital": {
+      "credenciar": {
+        "nome_empresa": "",
+        "cnpj": "",
+        "cep": "",
+        "endereco": "",
+        "numero": "",
+        "bairro": "",
+        "complemento": "",
+        "cidade": "",
+        "estado": "",
+        "ddd": "",
+        "telefone": "",
+        "email": ""
+      },
       "administradores": {},
       "credenciamento": {},
       "subcontas": {},

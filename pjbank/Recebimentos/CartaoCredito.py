@@ -1,52 +1,28 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from pjbank.api import PJBankAPI
+from pjbank.Recebimentos import Recebimentos
 
-class CartaoCredito(PJBankAPI):
-    """docstring for Boleto."""
+class CartaoCredito(Recebimentos):
+    """docstring for CartaoCredito."""
     def __init__(self, credencial=None, chave=None):
-        super(CartaoCredito, self).__init__()
-        self.__endpoint_base = "recebimentos"
-        self.__metodos = ["GET", "POST", "DELETE"]
-        if credencial and chave:
-            self.configurar(credencial, chave)
+        super().__init__(credencial, chave)
 
-    def get_modelo(self, tipo):
-        pass
+    def credenciar(self, dados):
+        dados.update({'cartao': True})
+        return super().credenciar(dados)
 
-    def credenciar(self, dadosEmpresa):
-        response = self._post(self.get_endpoint(), self.get_headers(), dadosEmpresa)
-        if not dadosEmpresa['cartao']:
-            dadosEmpresa['cartao'] = True
-        if response.ok:
-            info = response.json()
-            self.configurar(info['credencial'], info['chave'])
+    def tokenizar(self, dados_cartao):
+        headers = self.headers_chave.update(self.headers_content)
+        response = self._post(['tokens'], headers, dados_cartao)
         return response.text
 
-    def tokenizar(self, dadosCartao):
-        response = self._post(self.get_endpoint('tokens'), self.get_headers(), dadosCartao)
+    def transacao(self, dados_transacao):
+        headers = self.headers_chave.update(self.headers_content)
+        response = self._post(['transacoes'], headers, dados_transacao)
         return response.text
 
-    def imprimir(self, idsBoletos, carne=None):
-        body = {"pedido_numero": idsBoletos}
-        if carne:
-            body.update({"formato": carne})
-        response = self._post(self.get_endpoint('transacoes','lotes'), self.get_headers(), body)
+    def cancelar(self, id_operacao):
+        headers = self.headers_chave
+        response = self._delete(['transacoes', id_operacao], headers)
         return response.text
-
-    def extrato(self, pago=None, dataInicio=None, dataFim=None, pagina=None):
-        url_params = self.get_endpoint('transacoes')
-        params = {}
-        if pago:
-            params.update({"pago":pago})
-        if dataInicio:
-            params.update({"dataInicio":dataInicio})
-        if dataFim:
-            params.update({"dataFim":dataFim})
-        if pagina:
-            params.update({"pagina":pagina})
-
-        response = self._get(url_params, self.get_headers(), params=params)
-        return response.text
-    

@@ -5,49 +5,57 @@ import requests
 from pjbank.config import __apiurls__ as apiurls
 
 class PJBankAPI(object):
-    """docstring for PJBankAPI."""
+    """Classe representando a API PJBank. A chamada deve especificar """
 
-    def __init__(self):
-        self._url = apiurls.get("sandbox")
-        self._credencial = None
-        self._indice_credencial = "X-CHAVE"
-        self._chave = None
-        self.__metodos = ["GET", "POST", "PUT", "DELETE"]
-        self.__endpoint_base = None
+    def __init__(self, credencial=None, chave=None, modo="sandbox"):
+        self._modo = modo
+        self.__url = apiurls.get(self._modo)
+        self.__endpoint_base = ''
+        self._credencial = credencial
+        self._chave = chave
+        self._chave_headers = "X-CHAVE-CONTA"
+        self._content_type = "application/json" 
 
-    def configurar(self, credencial=None, chave=None, modo=None):
-        if credencial:
-            self._credencial = credencial
-        if chave:
-            self._chave = chave
-        if modo:
-            self._url = apiurls.get(modo)
-
-    def get_credencial(self):
+    @property
+    def credencial(self):
         return self._credencial
 
-    def get_chave(self):
+    @credencial.setter
+    def credencial(self, credencial):
+        self._credencial = credencial
+
+    @property
+    def chave(self):
         return self._chave
+    
+    @chave.setter
+    def chave(self, chave):
+        self._chave = chave
+    
+    @property
+    def modo(self):
+        return self._modo
 
-    def get_modo(self):
-        return self._url
+    @modo.setter
+    def modo(self, modo):
+        self._modo = modo
+        self.__url = apiurls.get(self._modo)
 
-    def get_headers(self, chave=None):
-        headers = {"Content-Type":"application/json"}
-        if chave:
-            headers.update({self._get_indice_credencial: self.get_chave})
-        return headers
-
-    def get_endpoint(self, credenciais=False, *args):
-        if credenciais:
-            args = [self._credencial]+args
+    @property
+    def headers_chave(self):
+        return {self._chave_headers: self.chave}
+    
+    @property
+    def headers_content(self):
+        return {"Content-Type": self._content_type}
+    
+    def _get_endpoint(self, *args):
+        if self.credencial:
+            args = [self.credencial]+args
         return "/".join([self.__endpoint_base]+args)
 
-    def _get_indice_credencial(self):
-        return self._indice_credencial
-
     def _request(self, metodo, endpoint, headers, dados=None, params=None):
-        url = "/".join([self._url, self.__endpoint_base, endpoint])
+        url = self._get_endpoint([self.__url, self.__endpoint_base]+endpoint)
         return requests.request(metodo, url, data=dados, headers=headers, params=params)
 
     def _get(self, endpoint, headers, params=None):
@@ -61,3 +69,20 @@ class PJBankAPI(object):
 
     def _delete(self, endpoint, headers, dados=None, params=None):
         return self._request("DELETE", endpoint, headers, dados, params)
+
+    def configurar(self, credencial=None, chave=None, modo=None):
+        if credencial:
+            self.credencial = credencial
+        if chave:
+            self.chave = chave
+        if modo:
+            self.__url = apiurls.get(modo)
+    
+    def credenciar(self, dados_empresa):
+        headers = self.headers_content
+        response = self._post(self._get_endpoint(), headers, dados_empresa)
+        if response.ok:
+            info = response.json()
+            self.configurar(info['credencial'], info['chave'])
+        return response.text
+
