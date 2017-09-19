@@ -44,9 +44,11 @@ class PJBank(object):
 
     @classmethod
     def credenciar(cls, produto, dados, modo='sandbox'):
-        produtos = {"conta digital": cls().contadigital, "boleto": cls().boleto, "cartao": cls().cartao}
+        produtos = {"conta digital": cls.contadigital, "boleto": cls.boleto, "cartao": cls.cartao}
         produto_pj = produtos.get(produto)
         produto_pj.modo = modo
         response = produto_pj.credenciar(dados)
-        return response
+        produto_pj.response = response
+        print(response.json())
+        return produto_pj
  

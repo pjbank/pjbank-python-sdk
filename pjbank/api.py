@@ -5,7 +5,7 @@ import requests
 from pjbank.config import __apiurls__ as apiurls
 
 class PJBankAPI(object):
-    """Classe representando a API PJBank. A chamada deve especificar """
+    """Classe representando a API PJBank."""
 
     def __init__(self, credencial=None, chave=None, modo="sandbox"):
         self._modo = modo
@@ -60,7 +60,7 @@ class PJBankAPI(object):
 
     def _request(self, metodo, endpoint, headers, dados=None, params=None):
         url = self._get_endpoint(endpoint)
-        return requests.request(metodo, url, data=dados, headers=headers, params=params)
+        return requests.request(metodo, url, json=dados, headers=headers, params=params)
 
     def _get(self, endpoint, headers, params=None):
         return self._request("GET", endpoint, headers, params)
@@ -88,5 +88,6 @@ class PJBankAPI(object):
         if response.ok:
             info = response.json()
             self.configurar(info['credencial'], info['chave'])
-        return response.text
+        print(response.json())
+        return response
 
