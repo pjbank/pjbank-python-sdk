@@ -12,15 +12,15 @@ class Boleto(Recebimentos):
         dados.pop('cartao', None)
         return super().credenciar(dados)
 
-    def emitir(self, dados_boleto):
+    def emitir(self, dados):
         headers = self.headers_content
-        response = self._post(['transacoes'], headers, dados_boleto)
+        response = self._post(['transacoes'], headers, dados)
         return response.text
 
     def imprimir(self, ids_boletos, carne=None):
         headers = self.headers_chave.update(self.headers_content)
-        body = {"pedido_numero": ids_boletos}
+        dados = {"pedido_numero": ids_boletos}
         if carne:
-            body.update({"formato": carne})
-        response = self._post(['transacoes', 'lotes'], headers, body)
+            dados.update({"formato": carne})
+        response = self._post(['transacoes', 'lotes'], headers, dados)
         return response.text

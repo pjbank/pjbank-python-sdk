@@ -11,15 +11,15 @@ class CartaoCredito(Recebimentos):
     def credenciar(self, dados):
         dados.update({'cartao': True})
         return super().credenciar(dados)
-
-    def tokenizar(self, dados_cartao):
+    
+    def tokenizar(self, dados):
         headers = self.headers_chave.update(self.headers_content)
-        response = self._post(['tokens'], headers, dados_cartao)
+        response = self._post(['tokens'], headers, dados)
         return response.text
 
-    def transacao(self, dados_transacao):
+    def transacao(self, dados):
         headers = self.headers_chave.update(self.headers_content)
-        response = self._post(['transacoes'], headers, dados_transacao)
+        response = self._post(['transacoes'], headers, dados)
         return response.text
 
     def cancelar(self, id_operacao):

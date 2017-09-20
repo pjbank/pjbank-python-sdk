@@ -2,21 +2,27 @@
 # -*- coding: utf-8 -*-
 
 from pjbank.api import PJBankAPI
-from pjbank.ContaDigital import Administradores
-from pjbank.ContaDigital import Credenciamento
-from pjbank.ContaDigital import Subcontas
-from pjbank.ContaDigital import Transacoes
-from pjbank.ContaDigital import Recebimentos
-
+from pjbank.ContaDigital.Funcoes import SubContas, Consultas, Credenciamento
 
 class ContaDigital(PJBankAPI):
     """docstring for ContaDigital."""
-    def __init__(self, credencial=None, chave=None):
+    def __init__(self, credencial=None, chave=None, webhook_chave=None):
         super().__init__(credencial, chave)
-        self.__endpoint_base = "contadigital"
+        self._endpoint_base = "contadigital"
+        self._webhook_chave = webhook_chave
+        self.subcontas = SubContas()
+        self.consultas = Consultas()
+        self.credenciamento = Credenciamento()
 
+    @property
+    def webhook_chave(self):
+        return self._webhook_chave
+
+    @webhook_chave.setter
+    def webhook_chave(self, chave):
+        self._webhook_chave = chave
 
     def credenciar(self, dados):
-        if len(dados.keys) < 11:
-            raise Exception("É preciso fornecer os dados de cadastro obrigatórios.")
-        return super().credenciar(dados)
+        super().credenciar(dados)
+        self.webhook_chave = self.resposta_credenciamento.json()['webhook_chave']
+        return self

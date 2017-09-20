@@ -1,34 +1,63 @@
 [
   {
-    "recebimento": {
-      "boleto": {
+    "Recebimentos": {
+      "Boleto": {
         "credenciar": {
+          "headers":{}, 
+          "endpoint": {},
+          "body":{
+            "nome_empresa": "",
+            "conta_repasse": "",
+            "agencia_repasse": "",
+            "banco_repasse": "",
+            "cnpj": "",
+            "ddd": "",
+            "telefone": "",
+            "email": ""
+          }
+        },
+        "emitir": {
+
+        },
+        "imprimir": {
+          
+        }
+      },
+      "CartaoCredito": {
+        "credenciar": {
+          "headers":{}, 
+          "endpoint": {},
+          "body":{
+            "nome_empresa": "",
+            "conta_repasse": "",
+            "agencia_repasse": "",
+            "banco_repasse": "",
+            "cnpj": "",
+            "ddd": "",
+            "telefone": "",
+            "email": ""
+          }
+        }
+      }
+    },
+    "ContaDigital": {
+      "credenciar": {
+        "headers":{}, 
+        "endpoint": {},
+        "body":{
           "nome_empresa": "",
-          "conta_repasse": "",
-          "agencia_repasse": "",
-          "banco_repasse": "",
           "cnpj": "",
+          "cep": "",
+          "endereco": "",
+          "numero": "",
+          "bairro": "",
+          "complemento": "",
+          "cidade": "",
+          "estado": "",
           "ddd": "",
           "telefone": "",
           "email": ""
         }
-      },
-      "cartao": {}
-    },
-    "conta_digital": {
-      "credenciar": {
-        "nome_empresa": "",
-        "cnpj": "",
-        "cep": "",
-        "endereco": "",
-        "numero": "",
-        "bairro": "",
-        "complemento": "",
-        "cidade": "",
-        "estado": "",
-        "ddd": "",
-        "telefone": "",
-        "email": ""
       },
       "administradores": {},
       "credenciamento": {},

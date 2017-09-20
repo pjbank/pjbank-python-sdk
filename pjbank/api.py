@@ -74,20 +74,14 @@ class PJBankAPI(object):
     def _delete(self, endpoint, headers, dados=None, params=None):
         return self._request("DELETE", endpoint, headers, dados, params)
 
-    def configurar(self, credencial=None, chave=None, modo=None):
-        if credencial:
-            self.credencial = credencial
-        if chave:
-            self.chave = chave
-        if modo:
-            self._url = apiurls.get(modo)
-    
     def credenciar(self, dados_empresa):
         headers = self.headers_content
         response = self._post(None, headers, dados_empresa)
-        if response.ok:
-            info = response.json()
-            self.configurar(info['credencial'], info['chave'])
-        print(response.json())
-        return response
+        info = response.json()
+        if not response.ok:
+            raise Exception(response.text())
+        self.credencial = info['credencial']
+        self.chave = info['chave']
+        self.resposta_credenciamento = info
+        return self
 
