@@ -1,8 +1,7 @@
 *.pyc
 pjbank.egg-info
 pjbank.egg-info/*
-.vscode/tags
-.vscode/.ropeproject/config.py
-.vscode/.ropeproject/objectdb
+.vscode
+.vscode/*
 __pycache__
 */__pycache__/*
