@@ -1,3 +1,7 @@
 *.pyc
-pjbanksdk.egg-info
-pjbanksdk.egg-info/*.*
+pjbank.egg-info
+pjbank.egg-info/*
+.vscode
+.vscode/*
+__pycache__
+*/__pycache__/*
