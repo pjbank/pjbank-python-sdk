@@ -53,6 +53,8 @@ class PJBankAPI(object):
     
     def _get_endpoint(self, recursos=None):
         base = [self._url, self._endpoint_base]
+        if self.credencial:
+            base.extend([self.credencial])
         if recursos:
             base.extend(recursos)
         url = '/'.join(base)
