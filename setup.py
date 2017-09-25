@@ -28,6 +28,7 @@ setup(
 
     # The project's main homepage.
     url='https://github.com/pjbank/pjbank-python-sdk',
+    download_url = 'https://github.com/pjbank/pjbank-python-sdk/archive/'+__version__+'.tar.gz',
 
     # Author details
     author='Raphael Mattos',
@@ -53,8 +54,6 @@ setup(
 
         # Specify the Python versions you support here. In particular, ensure
         # that you indicate whether you support Python 2, Python 3 or both.
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
