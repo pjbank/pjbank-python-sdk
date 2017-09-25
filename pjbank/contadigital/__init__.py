@@ -42,12 +42,14 @@ class ContaDigital(PJBankAPI):
     @automatico    
     def dados_conta(self):
         return self._consulta()
-    
+    @automatico        
     def documentos(self):
         return self._consulta(['documentos'])
     
+    @automatico    
     def status_socio(self, email):
         return self._consulta(['administradores', email])
 
+    @automatico    
     def administradores(self):
         return self._consulta(['administradores'])

@@ -7,7 +7,7 @@ class Boleto(Recebimentos):
     """docstring for Boleto."""
     def __init__(self, credencial=None, chave=None):
         super().__init__(credencial, chave)
-    
+
     def automatico(f):
         def wrapper(self, *args, **kwargs):
             if 'c' in kwargs.keys():
@@ -18,7 +18,7 @@ class Boleto(Recebimentos):
             kwargs.pop('ch')
             return f(self, *args, **kwargs)
         return wrapper
-    
+
     def credenciar(self, dados):
         dados.pop('cartao', None)
         return super().credenciar(dados)

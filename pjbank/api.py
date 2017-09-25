@@ -80,8 +80,10 @@ class PJBankAPI(object):
         headers = self.headers_content
         response = self._post(None, headers, dados_empresa)
         info = response.json()
+        if self.credencial or self.chave:
+            raise Exception("CNPJ já credenciado.".encode("utf8")) 
         if not response.ok:
-            raise Exception(response.text())
+            raise Exception(response.text)
         self.credencial = info['credencial']
         self.chave = info['chave']
         self.resposta_credenciamento = info
