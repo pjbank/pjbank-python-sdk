@@ -1,0 +1,74 @@
+[
+  {
+    "Recebimentos": {
+      "Boleto": {
+        "credenciar": {
+          "nome_empresa": "",
+          "conta_repasse": "",
+          "agencia_repasse": "",
+          "banco_repasse": "",
+          "cnpj": "",
+          "ddd": "",
+          "telefone": "",
+          "email": ""
+        },
+        "emitir": {
+          "vencimento": "12/30/2019",
+          "valor": 50.75,
+          "juros": 0,
+          "multa": 0,
+          "desconto": "",
+          "nome_cliente": "Cliente de Exemplo",
+          "cpf_cliente": "62936576000112",
+          "endereco_cliente": "Rua Joaquim Vilac",
+          "numero_cliente": "509",
+          "complemento_cliente": "",
+          "bairro_cliente": "Vila Teixeira",
+          "cidade_cliente": "Campinas",
+          "estado_cliente": "SP",
+          "cep_cliente": "13301510",
+          "logo_url": "http://wallpapercave.com/wp/xK64fR4.jpg",
+          "texto": "Exemplo de emissão de boleto",
+          "grupo": "Boletos",
+          "pedido_numero": "2342"
+        },
+        "imprimir": {
+          "pedido_numero": ["2342", "2343"]
+        }
+      },
+      "CartaoCredito": {
+        "credenciar": {
+          "nome_empresa": "",
+          "conta_repasse": "",
+          "agencia_repasse": "",
+          "banco_repasse": "",
+          "cnpj": "",
+          "ddd": "",
+          "telefone": "",
+          "email": ""
+        }
+      }
+    },
+    "ContaDigital": {
+      "credenciar": {
+        "nome_empresa": "",
+        "cnpj": "",
+        "cep": "",
+        "endereco": "",
+        "numero": "",
+        "bairro": "",
+        "complemento": "",
+        "cidade": "",
+        "estado": "",
+        "ddd": "",
+        "telefone": "",
+        "email": ""
+      },
+      "administradores": {},
+      "credenciamento": {},
+      "subcontas": {},
+      "transacoes": {},
+      "recebimentos": {}
+    }
+  }
+]
