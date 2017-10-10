@@ -12,10 +12,10 @@ class CartaoCredito(Recebimentos):
         def wrapper(self, *args, **kwargs):
             if 'c' in kwargs.keys():
                 self.credencial = kwargs['c']
+                kwargs.pop('c')
             if 'ch' in kwargs.keys():
                 self.chave = kwargs['ch']
-            kwargs.pop('c')
-            kwargs.pop('ch')
+                kwargs.pop('ch')
             return f(self, *args, **kwargs)
         return wrapper
 
