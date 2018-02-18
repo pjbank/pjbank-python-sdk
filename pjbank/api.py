@@ -39,7 +39,7 @@ class PJBankAPI(object):
     @modo.setter
     def modo(self, modo):
         if modo not in apiurls:
-            raise Exception("Modo inválido. Use 'live' ou 'sandbox'.")
+            raise Exception("Modo inválido. Use 'producao' ou 'sandbox'.")
         self._modo = modo
         self._url = apiurls.get(self._modo)
 
