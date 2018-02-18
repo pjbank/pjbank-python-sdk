@@ -9,8 +9,6 @@ class Recebimentos(PJBankAPI):
         super().__init__(credencial, chave)
         self._endpoint_base = "recebimentos"
         self._chave_headers = "X-CHAVE"
-        if credencial and chave:
-            self.configurar(credencial, chave)
         
     def extrato(self, pago=None, data_inicio=None, data_fim=None, pagina=None):
         params = {}

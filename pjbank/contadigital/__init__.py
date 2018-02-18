@@ -12,12 +12,12 @@ class ContaDigital(PJBankAPI):
 
     def automatico(f):
         def wrapper(self, *args, **kwargs):
-            if kwargs['c']:
+            if 'c' in kwargs.keys():
                 self.credencial = kwargs['c']
-            if kwargs['ch']:
+                kwargs.pop('c')
+            if 'ch' in kwargs.keys():
                 self.chave = kwargs['ch']
-            kwargs.pop('c')
-            kwargs.pop('ch')
+                kwargs.pop('ch')
             return f(self, *args, **kwargs)
         return wrapper
 
