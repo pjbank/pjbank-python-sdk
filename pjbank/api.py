@@ -36,13 +36,14 @@ class PJBankAPI(object):
     def modo(self):
         return self._modo
 
-    @modo.setter
-    def modo(self, modo):
-        if modo not in apiurls:
-            raise Exception("Modo inválido. Use 'producao' ou 'sandbox'.")
-        self._modo = modo
+    def dev(self, dev: bool=True):
+        if dev == True:
+            self.___modo = 'sandbox'
+        elif dev == False:
+            self._modo = 'producao'
         self._url = apiurls.get(self._modo)
-
+        return self.modo   
+    
     @property
     def headers_chave(self):
         return {self._chave_headers: self.chave}
