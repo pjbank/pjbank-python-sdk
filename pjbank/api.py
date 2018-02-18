@@ -78,6 +78,11 @@ class PJBankAPI(object):
 
     def _delete(self, endpoint, headers, dados=None, params=None):
         return self._request("DELETE", endpoint, headers, dados, params)
+    
+    def _consulta(self, endpoint=None):
+        headers = self.headers_chave        
+        response = self._get(endpoint, headers)
+        return response.json()
 
     def credenciar(self, dados_empresa):
         headers = self.headers_content

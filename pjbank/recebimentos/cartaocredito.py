@@ -31,7 +31,7 @@ class CartaoCredito(Recebimentos):
         return response.json()
 
     @automatico
-    def transacao(self, dados):
+    def nova_transacao(self, dados):
         headers = self.headers_chave
         headers.update(self.headers_content)
         response = self._post(['transacoes'], headers, dados)
