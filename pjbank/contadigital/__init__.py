@@ -6,7 +6,7 @@ from pjbank.api import PJBankAPI
 class ContaDigital(PJBankAPI):
     """docstring for ContaDigital."""
     def __init__(self, credencial=None, chave=None, webhook_chave=None):
-        super().__init__()
+        super().__init__(credencial, chave)
         self._endpoint_base = "contadigital"
         self._webhook_chave = webhook_chave
 
