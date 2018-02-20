@@ -6,7 +6,7 @@ from pjbank.contadigital import ContaDigital
 class SubContas(ContaDigital):
     """docstring for SubContas."""
     def __init__(self):
-        super().__init__()
+        super(SubContas, self).__init__()
 
     def novo_cartao(self, dados):
         headers = self.headers_chave

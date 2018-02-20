@@ -6,7 +6,7 @@ from pjbank.contadigital import ContaDigital
 class Credenciamento(ContaDigital):
     """docstring for Credenciamento."""
     def __init__(self):
-        super().__init__()
+        super(Credenciamento, self).__init__()
     
     def documentos(self, dados):
         pass

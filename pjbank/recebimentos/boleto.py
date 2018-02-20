@@ -6,7 +6,7 @@ from pjbank.recebimentos import Recebimentos
 class Boleto(Recebimentos):
     """docstring for Boleto."""
     def __init__(self, credencial=None, chave=None):
-        super().__init__(credencial, chave)
+        super(Boleto, self).__init__(credencial, chave)
 
     def automatico(f):
         def wrapper(self, *args, **kwargs):
