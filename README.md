@@ -3,18 +3,21 @@ PJbank SDK para Python! :snake: :snake: :snake:
 
 Consulte a [documentação da API PJBank](http://docs.pjbank.com.br) para mais informações.
 
-#Instalação
+# Instalação
 
 ```
 pip install pjbank
 ```
 
-#Quickstart
+# Quickstart
 
 ```
 import pjbank
 
 conta_boleto = pjbank.Boleto()
+
+#modo de desenvolvimento
+conta_boleto.dev(True)
 
 conta_boleto.credenciar(dados_empresa)
 
