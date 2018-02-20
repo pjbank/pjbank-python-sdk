@@ -1,4 +1,4 @@
-"""Configurações do pacote pjbank-sdk
+"""Setup pjbank-sdk
 """
 
 # To use a consistent encoding
@@ -43,7 +43,7 @@ setup(
         #   3 - Alpha
         #   4 - Beta
         #   5 - Production/Stable
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
 
         # Indicate who your project is intended for
         'Intended Audience :: Developers',
@@ -78,6 +78,8 @@ setup(
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=['requests'],
 
+    python_requires='>=3',
+
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
     # for example:
@@ -90,9 +92,9 @@ setup(
     # If there are data files included in your packages that need to be
     # installed, specify them here.  If using Python 2.6 or less, then these
     # have to be included in MANIFEST.in as well.
-    package_data={
-        'sample': ['package_data.dat'],
-    },
+    # package_data={
+    #     'sample': ['package_data.dat'],
+    # },
 
     # Although 'package_data' is the preferred approach, in some case you may
     # need to place data files outside of your packages. See:
@@ -103,9 +105,9 @@ setup(
     # To provide executable scripts, use entry points in preference to the
     # "scripts" keyword. Entry points provide cross-platform support and allow
     # pip to create the appropriate form of executable for the target platform.
-    entry_points={
-        'console_scripts': [
-            'pjbank=pjbank:main',
-        ],
-    },
+    # entry_points={
+    #     'console_scripts': [
+    #         'pjbank=pjbank:main',
+    #     ],
+    # },
 )
