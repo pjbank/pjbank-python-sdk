@@ -36,7 +36,9 @@ class PJBankAPI(object):
     def modo(self):
         return self._modo
 
-    def dev(self, dev: bool=True):
+    def dev(self, dev=True):
+        if type(dev) == str and dev == 'producao':
+            dev = False
         if dev == True:
             self._modo = 'sandbox'
         elif dev == False:
