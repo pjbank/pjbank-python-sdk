@@ -2,6 +2,11 @@
 # -*- coding: utf-8 -*-
 
 from pjbank.api import PJBankAPI
+import credenciamento
+import consultas
+import transacoes
+import subcontas
+from pjbank.recebimentos import Recebimentos
 
 class ContaDigital(PJBankAPI):
     """docstring for ContaDigital."""
@@ -9,6 +14,16 @@ class ContaDigital(PJBankAPI):
         super(ContaDigital, self).__init__(credencial, chave)
         self._endpoint_base = "contadigital"
         self._webhook_chave = webhook_chave
+        self._recebimentos()
+
+    def _recebimentos(self):
+        self.recebimentos.boleto = Boleto(self.credencial, self.chave)
+        self.recebimentos.boleto._endpoint_base = "contadigital/recebimentos"
+        self.recebimentos.boleto._chave_headers = "X-CHAVE-CONTA"
+        
+        self.recebimentos.cartao = CartaoCredito(self.credencial, self.chave)
+        self.recebimentos.cartao._endpoint_base = "contadigital/recebimentos"
+        self.recebimentos.cartao._chave_headers = "X-CHAVE-CONTA"
 
     def automatico(f):
         def wrapper(self, *args, **kwargs):
@@ -33,23 +48,3 @@ class ContaDigital(PJBankAPI):
         super(ContaDigital, self).credenciar(dados)
         self.webhook_chave = self.resposta_credenciamento['webhook_chave']
         return self
-
-    def _consulta(self, endpoint=None):
-        headers = self.headers_chave        
-        response = self._get(endpoint, headers)
-        return response.json()   
-
-    @automatico    
-    def dados_conta(self):
-        return self._consulta()
-    @automatico        
-    def documentos(self):
-        return self._consulta(['documentos'])
-    
-    @automatico    
-    def status_socio(self, email):
-        return self._consulta(['administradores', email])
-
-    @automatico    
-    def administradores(self):
-        return self._consulta(['administradores'])
