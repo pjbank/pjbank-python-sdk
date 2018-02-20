@@ -3,17 +3,34 @@
     "Recebimentos": {
       "Boleto": {
         "credenciar": {
-          "nome_empresa": "",
-          "conta_repasse": "",
-          "agencia_repasse": "",
-          "banco_repasse": "",
-          "cnpj": "",
-          "ddd": "",
-          "telefone": "",
-          "email": ""
+          "nome_empresa": "Teste Python SDK",
+          "conta_repasse": "99991",
+          "agencia_repasse": "9999",
+          "banco_repasse": "001",
+          "cnpj": "47434767000192",
+          "ddd": "91",
+          "telefone": "40046830",
+          "email": "atendimentos@pjbank.com.br"
         },
         "emitir": {
-
+          "vencimento": "12/30/2019",
+          "valor": 50.75,
+          "juros": 0,
+          "multa": 0,
+          "desconto": "",
+          "nome_cliente": "Cliente de Exemplo",
+          "cpf_cliente": "62936576000112",
+          "endereco_cliente": "Rua Joaquim Vilac",
+          "numero_cliente": "509",
+          "complemento_cliente": "",
+          "bairro_cliente": "Vila Teixeira",
+          "cidade_cliente": "Campinas",
+          "estado_cliente": "SP",
+          "cep_cliente": "13301510",
+          "logo_url": "https://www.python.org/static/img/python-logo.png",
+          "texto": "Exemplo de emissão de boleto",
+          "grupo": "Boletos",
+          "pedido_numero": "9999"
         },
         "imprimir": {
           

@@ -5,5 +5,3 @@ from .context import pjbank
 
 def test_success():
     assert True
-
-def
