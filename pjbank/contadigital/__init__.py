@@ -2,11 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from pjbank.api import PJBankAPI
-import credenciamento
-import consultas
-import transacoes
-import subcontas
-from pjbank.recebimentos import Recebimentos
+from pjbank.recebimentos.boleto import Boleto
+from pjbank.recebimentos.cartaocredito import CartaoCredito
 
 class ContaDigital(PJBankAPI):
     """docstring for ContaDigital."""
@@ -17,13 +14,13 @@ class ContaDigital(PJBankAPI):
         self._recebimentos()
 
     def _recebimentos(self):
-        self.recebimentos.boleto = Boleto(self.credencial, self.chave)
-        self.recebimentos.boleto._endpoint_base = "contadigital/recebimentos"
-        self.recebimentos.boleto._chave_headers = "X-CHAVE-CONTA"
+        self.boleto = Boleto(self.credencial, self.chave)
+        self.boleto._endpoint_base = "contadigital/recebimentos"
+        self.boleto._chave_headers = "X-CHAVE-CONTA"
         
-        self.recebimentos.cartao = CartaoCredito(self.credencial, self.chave)
-        self.recebimentos.cartao._endpoint_base = "contadigital/recebimentos"
-        self.recebimentos.cartao._chave_headers = "X-CHAVE-CONTA"
+        self.cartao = CartaoCredito(self.credencial, self.chave)
+        self.cartao._endpoint_base = "contadigital/recebimentos"
+        self.cartao._chave_headers = "X-CHAVE-CONTA"
 
     def automatico(f):
         def wrapper(self, *args, **kwargs):
