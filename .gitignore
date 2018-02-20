@@ -5,3 +5,7 @@ pjbank.egg-info/*
 .vscode/*
 __pycache__
 */__pycache__/*
+build
+build/*
+dist
+dist/*
