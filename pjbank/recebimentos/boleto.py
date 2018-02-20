@@ -21,7 +21,7 @@ class Boleto(Recebimentos):
 
     def credenciar(self, dados):
         dados.pop('cartao', None)
-        return super().credenciar(dados)
+        return super(Boleto, self).credenciar(dados)
 
     @automatico
     def emitir(self, dados):

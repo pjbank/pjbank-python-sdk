@@ -21,7 +21,7 @@ class CartaoCredito(Recebimentos):
 
     def credenciar(self, dados):
         dados.update({'cartao': True})
-        return super().credenciar(dados)
+        return super(CartaoCredito, self).credenciar(dados)
 
     @automatico
     def tokenizar(self, dados):

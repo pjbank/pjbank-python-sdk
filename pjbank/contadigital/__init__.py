@@ -30,7 +30,7 @@ class ContaDigital(PJBankAPI):
         self._webhook_chave = chave
 
     def credenciar(self, dados):
-        super().credenciar(dados)
+        super(ContaDigital, self).credenciar(dados)
         self.webhook_chave = self.resposta_credenciamento['webhook_chave']
         return self
 
