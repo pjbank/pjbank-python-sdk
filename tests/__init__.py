@@ -4,4 +4,5 @@
 
 import pickle
 
-dados_testes = pickle.load('tests/dados_tests.pkl')
+with open('dados_testes.pkl', 'rb') as dump:
+    dados_testes = pickle.load(dump)

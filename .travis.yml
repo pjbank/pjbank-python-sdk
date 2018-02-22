@@ -1,5 +1,6 @@
 language: python
 python:
+  - "2.7"
   - "3.3"
   - "3.4"
   - "3.5"
@@ -11,4 +12,6 @@ install:
   - pip install -r requirements.txt
 # command to run tests
 script:
-  - pytest # or py.test for Python versions 3.5 and below
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then python -m unittest discover; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '3.4' ]]; then python -m unittest discover; fi
+  # - pytest # or py.test for Python versions 3.5 and below
