@@ -40,8 +40,8 @@ class BoletoTestCase(unittest.TestCase):
         dados_emis = self.dados['recebimentos']['boleto']['emitir']
         data = (datetime.date.today()+datetime.timedelta(days=1))
         dados_emis['vencimento'] = data.strftime('%m/%d/%Y')
-        r = self.emitir_boleto(dados_emis, True)
-        response = r.json()
+        res = self.emitir_boleto(dados_emis, True)
+        response = res.json()
         self.assertIn("id_unico", response)
         self.assertIn("nossonumero", response)
         self.assertIn("banco_numero", response)
@@ -57,7 +57,7 @@ class BoletoTestCase(unittest.TestCase):
         dados_emis['valor'] = 50.50
         dados_emis['pedido_numero'] = bol.r['pedido_numero']
         bol2 = self.emitir_boleto(dados_emis, False)
-        bol.r = bol.json()        
+        bol.r = bol.json()
         self.assertEqual(bol.r["linkBoleto"], bol2.r["linkBoleto"])
         self.assertEqual(bol.r["linkGrupo"], bol2.r["linkGrupo"])
         self.assertEqual(bol.r["linhaDigitavel"], bol2.r["linhaDigitavel"])
