@@ -9,3 +9,5 @@ build
 build/*
 dist
 dist/*
+.pytest*
+.pytest*/*
