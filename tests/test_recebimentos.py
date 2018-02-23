@@ -3,35 +3,65 @@
 # setup.py that excludes installing the "tests" package
 import unittest
 import pickle
-from datetime import datetime as datetime       
+import datetime
+import random    
 from pjbank import Boleto
+from dados import dados
 
 class DadosTeste(object):
     def __init__(self):
         super(DadosTeste, self).__init__()
-        with open('dados_testes.pkl', 'rb') as dump:
-            self._dados = pickle.load(dump)
+        self._dados = dados
     
-    def getDados(self):
+    @property
+    def dados(self):
         return self._dados
         
         
 class BoletoTestCase(unittest.TestCase):
     def setUp(self):
-        self.dados = DadosTeste().getDados()
+        self.dados = DadosTeste().dados
         creds = self.dados['recebimentos']['boleto']['credenciamento']
-        self.conta = pjbank.Boleto(creds['credencial'], creds['chave'])
+        self.boleto = Boleto(creds['credencial'], creds['chave'])
     
     def test_dados(self):
-        self.assertGreaterEqual(len(self.dados) > 0)
-        self.assert_(self.conta.credencial)
-        self.assert_(self.conta.chave)
+        self.assertGreaterEqual(len(self.dados), 0)
+        self.assert_(self.boleto.credencial)
+        self.assert_(self.boleto.chave)
     
-    def test_dados():
-        assert(len(dados) > 0)
+    
+    def emitir_boleto(self, dados, random_pedido=False):
+        if random_pedido:
+            dados['pedido_numero'] = random.randint(1000,99999)
+        return self.boleto.emitir(dados)
+        
 
-    def test_emitir_boleto():
+    def test_emitir_boleto(self):
         dados_emis = self.dados['recebimentos']['boleto']['emitir']
-        data = (datetime.date().today()+datetime.timedelta(days=1))
+        data = (datetime.date.today()+datetime.timedelta(days=1))
         dados_emis['vencimento'] = data.strftime('%m/%d/%Y')
+        r = self.emitir_boleto(dados_emis, True)
+        response = r.json()
+        self.assertIn("id_unico", response)
+        self.assertIn("nossonumero", response)
+        self.assertIn("banco_numero", response)
+        self.assertIn("linkBoleto", response)
+        self.assertIn("linkGrupo", response)
+        self.assertIn("linhaDigitavel", response)
+    
+    def test_editar_boleto(self):
+        dados_emis = self.dados['recebimentos']['boleto']['emitir']
+        bol = self.emitir_boleto(dados_emis, True)
+        bol.r = bol.json()
+        self.assertEqual(bol.r['status'], '201')
+        dados_emis['valor'] = 50.50
+        dados_emis['pedido_numero'] = bol.r['pedido_numero']
+        bol2 = self.emitir_boleto(dados_emis, False)
+        bol.r = bol.json()        
+        self.assertEqual(bol.r["linkBoleto"], bol2.r["linkBoleto"])
+        self.assertEqual(bol.r["linkGrupo"], bol2.r["linkGrupo"])
+        self.assertEqual(bol.r["linhaDigitavel"], bol2.r["linhaDigitavel"])
+    
+        
+        
         

@@ -3,6 +3,7 @@
 # setup.py that excludes installing the "tests" package
 
 import pickle
+import dados
 
-with open('dados_testes.pkl', 'rb') as dump:
-    dados_testes = pickle.load(dump)
+# with open('dados_testes.pkl', 'rb') as dump:
+#     dados_testes = pickle.load(dump)

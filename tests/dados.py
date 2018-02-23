@@ -1,13 +1,22 @@
-[
-  {
-    "Recebimentos": {
-      "Boleto": {
+# -*- coding: utf-8 -*-
+
+dados = {
+    "recebimentos": {
+      "boleto": {
+        "credenciamento": {
+          'agencia_virtual': '',
+          'chave': '733a1fa031098bf1fe1b582fceea0ad79c555079',
+          'conta_virtual': '141333',
+          'credencial': '0be30ccbf543205790778426c8138ae11c404d15',
+          'msg': 'Sucesso ao credenciar',
+          'status': '201'
+        },
         "credenciar": {
           "nome_empresa": "Teste Python SDK",
           "conta_repasse": "99991",
           "agencia_repasse": "9999",
           "banco_repasse": "001",
-          "cnpj": "47434767000192",
+          "cnpj": "62338615000180",
           "ddd": "91",
           "telefone": "40046830",
           "email": "atendimentos@pjbank.com.br"
@@ -29,14 +38,13 @@
           "cep_cliente": "13301510",
           "logo_url": "https://www.python.org/static/img/python-logo.png",
           "texto": "Exemplo de emissão de boleto",
-          "grupo": "Boletos",
-          "pedido_numero": "9999"
+          "grupo": "Boletos"
         },
         "imprimir": {
           
         }
       },
-      "CartaoCredito": {
+      "cartao_credito": {
         "credenciar": {
           "nome_empresa": "",
           "conta_repasse": "",
@@ -49,7 +57,7 @@
         }
       }
     },
-    "ContaDigital": {
+    "conta_digital": {
       "credenciar": {
         "nome_empresa": "",
         "cnpj": "",
@@ -71,4 +79,3 @@
       "recebimentos": {}
     }
   }
-]

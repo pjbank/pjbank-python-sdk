@@ -66,7 +66,6 @@ class PJBankAPI(object):
     def _request(self, metodo, endpoint, headers, dados=None, params=None):
         url = self._get_endpoint(endpoint)
         response = requests.request(metodo, url, json=dados, headers=headers, params=params)
-        response.encoding = 'utf-8'
         return response
 
     def _get(self, endpoint, headers, params=None):
