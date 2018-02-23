@@ -12,12 +12,12 @@ class DadosTeste(object):
     def __init__(self):
         super(DadosTeste, self).__init__()
         self._dados = dados
-    
+
     @property
     def dados(self):
         return self._dados
-        
-        
+
+
 class BoletoTestCase(unittest.TestCase):
     def setUp(self):
         self.dados = DadosTeste().dados
@@ -28,13 +28,11 @@ class BoletoTestCase(unittest.TestCase):
         self.assertGreaterEqual(len(self.dados), 0)
         self.assert_(self.boleto.credencial)
         self.assert_(self.boleto.chave)
-    
-    
+
     def emitir_boleto(self, dados, random_pedido=False):
         if random_pedido:
             dados['pedido_numero'] = random.randint(1000,99999)
-        return self.boleto.emitir(dados)
-        
+        return self.boleto.emitir(dados) 
 
     def test_emitir_boleto(self):
         dados_emis = self.dados['recebimentos']['boleto']['emitir']
@@ -48,7 +46,7 @@ class BoletoTestCase(unittest.TestCase):
         self.assertIn("linkBoleto", response)
         self.assertIn("linkGrupo", response)
         self.assertIn("linhaDigitavel", response)
-    
+ 
     def test_editar_boleto(self):
         dados_emis = self.dados['recebimentos']['boleto']['emitir']
         bol = self.emitir_boleto(dados_emis, True)
@@ -61,7 +59,5 @@ class BoletoTestCase(unittest.TestCase):
         self.assertEqual(bol.r["linkBoleto"], bol2.r["linkBoleto"])
         self.assertEqual(bol.r["linkGrupo"], bol2.r["linkGrupo"])
         self.assertEqual(bol.r["linhaDigitavel"], bol2.r["linhaDigitavel"])
-    
-        
-        
+
         
