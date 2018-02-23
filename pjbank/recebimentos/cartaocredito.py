@@ -6,7 +6,7 @@ from pjbank.recebimentos import Recebimentos
 class CartaoCredito(Recebimentos):
     """docstring for CartaoCredito."""
     def __init__(self, credencial=None, chave=None):
-        super().__init__(credencial, chave)
+        super(CartaoCredito, self).__init__(credencial, chave)
 
     def automatico(f):
         def wrapper(self, *args, **kwargs):
@@ -21,7 +21,7 @@ class CartaoCredito(Recebimentos):
 
     def credenciar(self, dados):
         dados.update({'cartao': True})
-        return super().credenciar(dados)
+        return super(CartaoCredito, self).credenciar(dados)
 
     @automatico
     def tokenizar(self, dados):
@@ -31,7 +31,7 @@ class CartaoCredito(Recebimentos):
         return response.json()
 
     @automatico
-    def transacao(self, dados):
+    def nova_transacao(self, dados):
         headers = self.headers_chave
         headers.update(self.headers_content)
         response = self._post(['transacoes'], headers, dados)

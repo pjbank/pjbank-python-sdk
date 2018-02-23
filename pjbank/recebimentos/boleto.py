@@ -6,7 +6,7 @@ from pjbank.recebimentos import Recebimentos
 class Boleto(Recebimentos):
     """docstring for Boleto."""
     def __init__(self, credencial=None, chave=None):
-        super().__init__(credencial, chave)
+        super(Boleto, self).__init__(credencial, chave)
 
     def automatico(f):
         def wrapper(self, *args, **kwargs):
@@ -21,7 +21,7 @@ class Boleto(Recebimentos):
 
     def credenciar(self, dados):
         dados.pop('cartao', None)
-        return super().credenciar(dados)
+        return super(Boleto, self).credenciar(dados)
 
     @automatico
     def emitir(self, dados):
@@ -38,3 +38,14 @@ class Boleto(Recebimentos):
             dados.update({"formato": carne})
         response = self._post(['transacoes', 'lotes'], headers, dados)
         return response
+    
+    @automatico
+    def invalidar(self, id_boleto):
+        headers = self.headers_content
+        headers.update(self.headers_chave)
+        response = self._delete(['transacoes', id_boleto], headers, dados)
+        return response
+
+    @automatico
+    def verificar_nao_liquidados(self):
+        response = self._consulta()        

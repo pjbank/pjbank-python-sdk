@@ -36,13 +36,16 @@ class PJBankAPI(object):
     def modo(self):
         return self._modo
 
-    @modo.setter
-    def modo(self, modo):
-        if modo not in apiurls:
-            raise Exception("Modo inválido. Use 'live' ou 'sandbox'.")
-        self._modo = modo
+    def dev(self, dev=True):
+        if type(dev) == str and dev == 'producao':
+            dev = False
+        if dev == True:
+            self._modo = 'sandbox'
+        elif dev == False:
+            self._modo = 'producao'
         self._url = apiurls.get(self._modo)
-
+        return self.modo   
+    
     @property
     def headers_chave(self):
         return {self._chave_headers: self.chave}
@@ -62,7 +65,8 @@ class PJBankAPI(object):
 
     def _request(self, metodo, endpoint, headers, dados=None, params=None):
         url = self._get_endpoint(endpoint)
-        return requests.request(metodo, url, json=dados, headers=headers, params=params)
+        response = requests.request(metodo, url, json=dados, headers=headers, params=params)
+        return response
 
     def _get(self, endpoint, headers, params=None):
         return self._request("GET", endpoint, headers, params)
@@ -75,17 +79,22 @@ class PJBankAPI(object):
 
     def _delete(self, endpoint, headers, dados=None, params=None):
         return self._request("DELETE", endpoint, headers, dados, params)
+    
+    def _consulta(self, endpoint=None):
+        headers = self.headers_chave        
+        response = self._get(endpoint, headers)
+        return response.json()
 
     def credenciar(self, dados_empresa):
         headers = self.headers_content
         response = self._post(None, headers, dados_empresa)
         info = response.json()
         if self.credencial or self.chave:
-            raise Exception("CNPJ já credenciado.".encode("utf-8")) 
+            raise Exception("Esta conta já está credenciada.".encode("utf-8")) 
         if not response.ok:
             raise Exception(response.text)
         self.credencial = info['credencial']
         self.chave = info['chave']
         self.resposta_credenciamento = info
-        return self
+        return info
 

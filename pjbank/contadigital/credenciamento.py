@@ -6,7 +6,7 @@ from pjbank.contadigital import ContaDigital
 class Credenciamento(ContaDigital):
     """docstring for Credenciamento."""
     def __init__(self):
-        super().__init__()
+        super(Credenciamento, self).__init__()
     
     def documentos(self, dados):
         pass
@@ -23,12 +23,12 @@ class Credenciamento(ContaDigital):
         response = self._put(None, headers, dados)
         return response.json()
 
-    def novo_admin(self, dados):
+    def novo_administrador(self, dados):
         headers = self.headers_chave
         response = self._post(['administradores'], headers, dados)
         return response.json()
 
-    def excluir_admin(self, email):
+    def excluir_administrador(self, email):
         headers = self.headers_chave
         response = self._delete(['administradores', email], headers)
         return response.json()
