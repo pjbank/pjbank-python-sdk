@@ -1,6 +1,8 @@
 # pjbank-python-sdk
 PJbank SDK para Python! :snake: :snake: :snake:
 
+[![Build Status](https://travis-ci.org/pjbank/pjbank-python-sdk.svg?branch=master)](http://travis-ci.org/pjbank/pjbank-python-sdk)
+
 Consulte a [documentação da API PJBank](http://docs.pjbank.com.br) para mais informações.
 
 # Instalação
