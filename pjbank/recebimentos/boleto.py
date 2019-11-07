@@ -43,7 +43,7 @@ class Boleto(Recebimentos):
     def invalidar(self, id_boleto):
         headers = self.headers_content
         headers.update(self.headers_chave)
-        response = self._delete(['transacoes', id_boleto], headers, dados)
+        response = self._delete(['transacoes', id_boleto], headers)
         return response
 
     @automatico
